@@ -1,0 +1,34 @@
+div {
+	padding: 2px;
+}
+
+div[id^="div-"]:nth-child(2n+2) {
+	background: #ffffdd;
+}
+
+div[id^="comments-"] {
+	background-color: #f4f4f4;
+	border: 1px solid darkgray
+}
+
+#mainDiv {
+	margin: auto;
+	width: 50%;
+}
+
+input[type=submit] {
+    padding: 0.2em;
+	background: black;
+	color: white;
+	cursor: pointer;
+	border: 0 none;
+}
+
+.comment {
+    background-color: white;
+    border: thin solid black;
+    cursor: pointer;
+    margin-top: 1em;
+    padding: 0.2em;
+    text-transform: uppercase;
+}
