@@ -8,7 +8,6 @@ div[id^="div-"]:nth-child(2n+2) {
 
 div[id^="comments-"] {
 	background-color: #f4f4f4;
-	border: 1px solid darkgray
 }
 
 #mainDiv {
@@ -17,7 +16,7 @@ div[id^="comments-"] {
 }
 
 input[type=submit] {
-    padding: 0.2em;
+    	padding: 0.2em;
 	background: black;
 	color: white;
 	cursor: pointer;
@@ -25,10 +24,14 @@ input[type=submit] {
 }
 
 .comment {
-    background-color: white;
-    border: thin solid black;
-    cursor: pointer;
-    margin-top: 1em;
-    padding: 0.2em;
-    text-transform: uppercase;
+	background-color: white;
+	border: thin solid black;
+	cursor: pointer;
+	margin-top: 1em;
+	padding: 0.2em;
+	text-transform: uppercase;
+}
+
+.post {
+	font-size: 15pt;
 }
