@@ -1,6 +1,6 @@
 "use strict";
 
-var urlRoot = 'http://localhost:8080/RestfulService/';
+var urlRoot = 'http://restfulservice.cfapps.io/';
 
 $(function() {
 	$("#userForm").submit(getUserData);
@@ -8,15 +8,14 @@ $(function() {
 
 function getUserData(event) {
 	if ($("#userId").val()) {
-		$.get(urlRoot + 'users/' + $("#userId").val()).done(processSuccess)
+		$.ajax(urlRoot + 'users/' + $("#userId").val(), {type: 'get', dataType: 'json'}).done(processSuccess)
 				.fail(processFail);
 	}
 	event.preventDefault();
 }
 
-function processSuccess(data) {
+function processSuccess(user) {
 	$("#mainDiv").empty();
-	var user = $.parseJSON(data);
 	$('<h1>').text(user.name).appendTo($("#mainDiv"));
 	$('<p>').text("Address: " + user.address).appendTo($("#mainDiv"));
 	$('<p>').text("Email: " + user.email).appendTo($("#mainDiv"));
@@ -25,12 +24,11 @@ function processSuccess(data) {
 
 function getPosts() {
 	var u = $("#userId").val();
-	$.get(urlRoot + 'users/' + $("#userId").val() + '/posts').done(
+	$.ajax(urlRoot + 'users/' + $("#userId").val() + '/posts', {type: 'get', dataType: 'json'}).done(
 			processPostsSuccess).fail(processFail);
 }
 
-function processPostsSuccess(data) {
-	var posts = $.parseJSON(data);
+function processPostsSuccess(posts) {
 	posts.forEach(function(obj) {
 		var div = $('<div id=div-' + obj.id + '>');
 
@@ -63,7 +61,7 @@ function displayHideComments(postId) {
 
 function getComments(postId) {
 	var u = $("#userId").val();
-	$.get(urlRoot + 'posts/' + postId + '/comments').done(
+	$.ajax(urlRoot + 'posts/' + postId + '/comments', {type: 'get', dataType: 'json'}).done(
 			getProcessCommentsSuccessFun(postId)).fail(processFail);
 }
 
@@ -72,10 +70,9 @@ function getProcessCommentsSuccessFun(postId) {
 	return myFun;
 }
 
-function processCommentsSuccess(postId, data) {
+function processCommentsSuccess(postId, comments) {
 	var div = $('#comments-' + postId);
-	var comments = $.parseJSON(data);
-	if (data)  {
+	if (comments)  {
 		comments.forEach(function(obj) {
 	
 			var cDiv = $('<div>');
