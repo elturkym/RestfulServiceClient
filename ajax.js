@@ -2,7 +2,7 @@
 
 (function() {
 	
-	var urlRoot = 'http://restfulservice.cfapps.io/';
+	var urlRoot = 'http://restfulservice.cleverapps.io/';
 
 	$(function() {
 		$("#userForm").submit(getUserData);
@@ -18,10 +18,10 @@
 
 	function processSuccess(user) {
 		$("#mainDiv").empty();
-		$('<h1>').text(user.name).appendTo($("#mainDiv"));
-		$('<p>').text("Address: " + user.address).appendTo($("#mainDiv"));
-		$('<p>').text("Email: " + user.email).appendTo($("#mainDiv"));
-		getPosts(user.links[0].href);
+		$('<h1>').text(user.Object.Name).appendTo($("#mainDiv"));
+		$('<p>').text("Address: " + user.Object.Address).appendTo($("#mainDiv"));
+		$('<p>').text("Email: " + user.Object.Email).appendTo($("#mainDiv"));
+		getPosts(user.Links.posts);
 	}
 
 	function getPosts(postsLink) {
@@ -32,16 +32,16 @@
 
 	function processPostsSuccess(posts) {
 		posts.forEach(function(post) {
-			var div = $('<div id=div-' + post.id + '>');
+			var div = $('<div id=div-' + post.Object.Id + '>');
 
 			var body = $('<p class=\'post\'>');
-			body.text(post.text);
+			body.text(post.Object.Text);
 
-			var commentDiv = $('<div id=comments-' + post.id + '>');
+			var commentDiv = $('<div id=comments-' + post.Object.Id + '>');
 			commentDiv.hide();
 
-			var commentShowButton = $('<input class=\'comment\' id=comments-' + post.id + '-b type=\'button\' value=\'Show Comments\'>');
-			commentShowButton.click(displayHideComments(post.links[0].href, post.id));
+			var commentShowButton = $('<input class=\'comment\' id=comments-' + post.Object.Id + '-b type=\'button\' value=\'Show Comments\'>');
+			commentShowButton.click(displayHideComments(post.Links.comments, post.Object.Id));
 			
 			div.append(body).append(commentDiv).append(commentShowButton);
 			$("#mainDiv").append(div);
@@ -80,10 +80,10 @@
 				var cDiv = $('<div>');
 				
 				var userHead = $('<em>');
-				userHead.text(obj.user.name);
+				userHead.text(obj.Object.User.Name);
 
 				var body = $('<p>');
-				body.text(obj.text);
+				body.text(obj.Object.Text);
 				
 				cDiv.append(userHead).append(body).append($('<hr>'));
 				div.append(cDiv);
