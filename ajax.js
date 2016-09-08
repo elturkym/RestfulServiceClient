@@ -17,11 +17,13 @@
 	}
 
 	function processSuccess(user) {
-		$("#mainDiv").empty();
-		$('<h1>').text(user.Object.Name).appendTo($("#mainDiv"));
-		$('<p>').text("Address: " + user.Object.Address).appendTo($("#mainDiv"));
-		$('<p>').text("Email: " + user.Object.Email).appendTo($("#mainDiv"));
-		getPosts(user.Links.posts);
+		if (user) {
+			$("#mainDiv").empty();
+			$('<h1>').text(user.Object.Name).appendTo($("#mainDiv"));
+			$('<p>').text("Address: " + user.Object.Address).appendTo($("#mainDiv"));
+			$('<p>').text("Email: " + user.Object.Email).appendTo($("#mainDiv"));
+			getPosts(user.Links.posts);
+		}
 	}
 
 	function getPosts(postsLink) {
@@ -31,21 +33,23 @@
 	}
 
 	function processPostsSuccess(posts) {
-		posts.forEach(function(post) {
-			var div = $('<div id=div-' + post.Object.Id + '>');
+		if (posts) {
+			posts.forEach(function(post) {
+				var div = $('<div id=div-' + post.Object.Id + '>');
 
-			var body = $('<p class=\'post\'>');
-			body.text(post.Object.Text);
+				var body = $('<p class=\'post\'>');
+				body.text(post.Object.Text);
 
-			var commentDiv = $('<div id=comments-' + post.Object.Id + '>');
-			commentDiv.hide();
+				var commentDiv = $('<div id=comments-' + post.Object.Id + '>');
+				commentDiv.hide();
 
-			var commentShowButton = $('<input class=\'comment\' id=comments-' + post.Object.Id + '-b type=\'button\' value=\'Show Comments\'>');
-			commentShowButton.click(displayHideComments(post.Links.comments, post.Object.Id));
-			
-			div.append(body).append(commentDiv).append(commentShowButton);
-			$("#mainDiv").append(div);
-		});
+				var commentShowButton = $('<input class=\'comment\' id=comments-' + post.Object.Id + '-b type=\'button\' value=\'Show Comments\'>');
+				commentShowButton.click(displayHideComments(post.Links.comments, post.Object.Id));
+				
+				div.append(body).append(commentDiv).append(commentShowButton);
+				$("#mainDiv").append(div);
+			});
+		}
 	}
 
 	function displayHideComments(commentsLink, postId) {
